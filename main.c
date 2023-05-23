@@ -30,19 +30,19 @@ void Corpo(void){
     glPushMatrix();
     glTranslatef(0, 0, 0);
     glRotatef(0, 0, 0, 0);
-    glScalef(0.8, 1, 1.2);
+    glScalef(0.8, 0.9, 1.2);
     GLUquadricObj *quadric = gluNewQuadric();
 	glColor4f(0.5, 0.5, 0.5, 1.0);
-    gluSphere(quadric, 1, 100, 150);
+    gluSphere(quadric, 0.9, 100, 150);
 
     glPopMatrix();
 }
 
 void Cabine(void) {
     glPushMatrix();
-    glTranslatef(0, 0.5, -0.5);
-    glRotatef(0, 0, 0, 0);
-    glScalef(1, 0.7, 1.3);
+    glTranslatef(0, 0.2, -0.6);
+    glRotatef(90, 0, 0, 1);
+    glScalef(1.1, 1, 1.1);
     GLUquadricObj *quadric = gluNewQuadric();
     glColor4f(0.5, 0.5, 1.0, 0.5);
     gluSphere(quadric, 0.5, 100, 150);
@@ -58,53 +58,53 @@ void Cauda(void){
 	glColor4f(0.5, 0.5, 0.5, 1.0);
 	
     GLUquadricObj *quadric = gluNewQuadric();
-    gluCylinder(quadric, 0.3, 0.2, 2.5, 10, 1);
+    gluCylinder(quadric, 0.2, 0.1, 2.5, 10, 1);
     glPopMatrix();
 }
 
 void Detalhe_cauda(void) {
     glPushMatrix();
-    glTranslatef(0,0, 3.3);
+    glTranslatef(0,0, 3.5);
     glRotatef(90, -1, 0, 0);
     glScalef(1, 1, 1);
 
     glBegin(GL_QUADS);
     glColor4f(0.5, 0.5, 0.5, 1);
 
-	glVertex3f(-0.05, 1, 0);    // V?rtice inferior esquerdo
-	glVertex3f(0.05, 1, 0);     // V?rtice inferior direito
-	glVertex3f(0.05, 0, 1);     // V?rtice superior direito
-	glVertex3f(-0.05, 0, 1);    // V?rtice superior esquerdo
+	glVertex3f(-0.05, 1, 0);
+	glVertex3f(0.05, 1, 0);
+	glVertex3f(0.05, 0, 1);
+	glVertex3f(-0.05, 0, 1);
 
 	// Face traseira
-	glVertex3f(-0.05, 1, 0); // V?rtice inferior esquerdo
-	glVertex3f(0.05, -0.2, 0);  // V?rtice inferior direito
-	glVertex3f(0.05, -0.2, 1);  // V?rtice superior direito
-	glVertex3f(-0.05, -0.2, 1); // V?rtice superior esquerdo
+	glVertex3f(-0.05, 1, 0);
+	glVertex3f(0.05, 0, 0);
+	glVertex3f(0.05, -0.2, 1);
+	glVertex3f(-0.05, -0.2, 1);
 
 	// Face lateral esquerda
-	glVertex3f(-0.05, 0, 0);    // V?rtice inferior esquerdo
-	glVertex3f(-0.05, 1, 0);    // V?rtice inferior direito
-	glVertex3f(-0.05, 0, 1);    // V?rtice superior direito
-	glVertex3f(-0.05, 0, 1);    // V?rtice superior esquerdo
+	glVertex3f(-0.05, 0, 0);
+	glVertex3f(-0.05, 1, 0);
+	glVertex3f(-0.05, -0.2, 1);
+	glVertex3f(-0.05, 0, 1);
 
 	// Face lateral direita
-	glVertex3f(0.05, 0, 0);     // V?rtice inferior esquerdo
-	glVertex3f(0.05, -0.2, 1);  // V?rtice inferior direito
-	glVertex3f(0.05, 1, 1);  // V?rtice superior direito
-	glVertex3f(0.05, 0, 1);     // V?rtice superior esquerdo
+	glVertex3f(0.05, 0, 0);
+	glVertex3f(0.05, -0.2, 1);
+	glVertex3f(0.05, 1, 1);
+	glVertex3f(0.05, 0, 1);
 
 	// Face superior
-	glVertex3f(-0.05, 0, 1);    // V?rtice inferior esquerdo
-	glVertex3f(0.05, 0, 1);     // V?rtice inferior direito
-	glVertex3f(0.05, -0.2, 1);  // V?rtice superior direito
-	glVertex3f(-0.05, -0.2, 1); // V?rtice superior esquerdo
+	glVertex3f(-0.05, 0, 1);
+	glVertex3f(0.05, 0, 1);
+	glVertex3f(0.05, -0.2, 1);
+	glVertex3f(-0.05, -0.2, 1);
 
 	// Face inferior
-	glVertex3f(-0.05, 0, 0);    // V?rtice inferior esquerdo
-	glVertex3f(0.05, 0, 0);     // V?rtice inferior direito
-	glVertex3f(0.05, 1, 0);  // V?rtice superior direito
-	glVertex3f(-0.05, 1, 0); // V?rtice superior esquerdo
+	glVertex3f(-0.05, 0, 0);
+	glVertex3f(0.05, 0, 0);
+	glVertex3f(0.05, 1, 0);
+	glVertex3f(-0.05, 1, 0);
 	
     glEnd();
 
@@ -116,7 +116,7 @@ void Base(void) {
 	//base 1
     glPushMatrix();
     
-	glTranslatef(0.3, -0.8, 0.3);
+	glTranslatef(0.3, -0.6, 0.3);
 	glRotatef(90, 1, 0, 0);
 	glRotatef(20, 0, 1, 0);
 	glScalef(1, 1, 1);
@@ -131,7 +131,7 @@ void Base(void) {
 	//base 2
 	glPushMatrix();
     
-	glTranslatef(0.3, -0.8, -0.3);
+	glTranslatef(0.3, -0.6, -0.3);
 	glRotatef(90, 1, 0, 0);
 	glRotatef(20, 0, 1, 0);
 	glScalef(1, 1, 1);
@@ -144,7 +144,7 @@ void Base(void) {
 	//base 3
 	glPushMatrix();
     
-	glTranslatef(-0.3, -0.8, -0.3);
+	glTranslatef(-0.3, -0.6, -0.3);
 	glRotatef(90, 1, 0, 0);
 	glRotatef(20, 0, -1, 0);
 	glScalef(1, 1, 1);
@@ -157,7 +157,7 @@ void Base(void) {
 	//base 4
 	glPushMatrix();
     
-	glTranslatef(-0.3, -0.8, 0.3);
+	glTranslatef(-0.3, -0.6, 0.3);
 	glRotatef(90, 1, 0, 0);
 	glRotatef(20, 0, -1, 0);
 	glScalef(1, 1, 1);
@@ -240,7 +240,7 @@ void keyboard(unsigned char key, int x, int y){
     break;
   }
 }
-// Renderiza tudo
+
 void draw(){
   helicopter = glGenLists(1);
   glNewList(helicopter, GL_COMPILE);
