@@ -32,7 +32,7 @@ void Corpo(void){
     glRotatef(0, 0, 0, 0);
     glScalef(0.8, 1, 1.2);
     GLUquadricObj *quadric = gluNewQuadric();
-    glColor4f(0.5, 0.5, 0.5, 1.0);
+	glColor4f(0.5, 0.5, 0.5, 1.0);
     gluSphere(quadric, 1, 100, 150);
 
     glPopMatrix();
@@ -55,10 +55,10 @@ void Cauda(void){
     glTranslatef(0, 0, 1);
     glRotatef(0, 0, 0, 0);
     glScalef(1, 1, 1);
+	glColor4f(0.5, 0.5, 0.5, 1.0);
+	
     GLUquadricObj *quadric = gluNewQuadric();
-    glColor4f(0.5, 0.5, 0.5, 1.0);
     gluCylinder(quadric, 0.3, 0.2, 2.5, 10, 1);
-
     glPopMatrix();
 }
 
@@ -71,40 +71,40 @@ void Detalhe_cauda(void) {
     glBegin(GL_QUADS);
     glColor4f(0.5, 0.5, 0.5, 1);
 
-	glVertex3f(-0.05, 1, 0);    // Vértice inferior esquerdo
-	glVertex3f(0.05, 1, 0);     // Vértice inferior direito
-	glVertex3f(0.05, 0, 1);     // Vértice superior direito
-	glVertex3f(-0.05, 0, 1);    // Vértice superior esquerdo
+	glVertex3f(-0.05, 1, 0);    // V?rtice inferior esquerdo
+	glVertex3f(0.05, 1, 0);     // V?rtice inferior direito
+	glVertex3f(0.05, 0, 1);     // V?rtice superior direito
+	glVertex3f(-0.05, 0, 1);    // V?rtice superior esquerdo
 
 	// Face traseira
-	glVertex3f(-0.05, 1, 0); // Vértice inferior esquerdo
-	glVertex3f(0.05, -0.2, 0);  // Vértice inferior direito
-	glVertex3f(0.05, -0.2, 1);  // Vértice superior direito
-	glVertex3f(-0.05, -0.2, 1); // Vértice superior esquerdo
+	glVertex3f(-0.05, 1, 0); // V?rtice inferior esquerdo
+	glVertex3f(0.05, -0.2, 0);  // V?rtice inferior direito
+	glVertex3f(0.05, -0.2, 1);  // V?rtice superior direito
+	glVertex3f(-0.05, -0.2, 1); // V?rtice superior esquerdo
 
 	// Face lateral esquerda
-	glVertex3f(-0.05, 0, 0);    // Vértice inferior esquerdo
-	glVertex3f(-0.05, 1, 0);    // Vértice inferior direito
-	glVertex3f(-0.05, 0, 1);    // Vértice superior direito
-	glVertex3f(-0.05, 0, 1);    // Vértice superior esquerdo
+	glVertex3f(-0.05, 0, 0);    // V?rtice inferior esquerdo
+	glVertex3f(-0.05, 1, 0);    // V?rtice inferior direito
+	glVertex3f(-0.05, 0, 1);    // V?rtice superior direito
+	glVertex3f(-0.05, 0, 1);    // V?rtice superior esquerdo
 
 	// Face lateral direita
-	glVertex3f(0.05, 0, 0);     // Vértice inferior esquerdo
-	glVertex3f(0.05, -0.2, 1);  // Vértice inferior direito
-	glVertex3f(0.05, 1, 1);  // Vértice superior direito
-	glVertex3f(0.05, 0, 1);     // Vértice superior esquerdo
+	glVertex3f(0.05, 0, 0);     // V?rtice inferior esquerdo
+	glVertex3f(0.05, -0.2, 1);  // V?rtice inferior direito
+	glVertex3f(0.05, 1, 1);  // V?rtice superior direito
+	glVertex3f(0.05, 0, 1);     // V?rtice superior esquerdo
 
 	// Face superior
-	glVertex3f(-0.05, 0, 1);    // Vértice inferior esquerdo
-	glVertex3f(0.05, 0, 1);     // Vértice inferior direito
-	glVertex3f(0.05, -0.2, 1);  // Vértice superior direito
-	glVertex3f(-0.05, -0.2, 1); // Vértice superior esquerdo
+	glVertex3f(-0.05, 0, 1);    // V?rtice inferior esquerdo
+	glVertex3f(0.05, 0, 1);     // V?rtice inferior direito
+	glVertex3f(0.05, -0.2, 1);  // V?rtice superior direito
+	glVertex3f(-0.05, -0.2, 1); // V?rtice superior esquerdo
 
 	// Face inferior
-	glVertex3f(-0.05, 0, 0);    // Vértice inferior esquerdo
-	glVertex3f(0.05, 0, 0);     // Vértice inferior direito
-	glVertex3f(0.05, 1, 0);  // Vértice superior direito
-	glVertex3f(-0.05, 1, 0); // Vértice superior esquerdo
+	glVertex3f(-0.05, 0, 0);    // V?rtice inferior esquerdo
+	glVertex3f(0.05, 0, 0);     // V?rtice inferior direito
+	glVertex3f(0.05, 1, 0);  // V?rtice superior direito
+	glVertex3f(-0.05, 1, 0); // V?rtice superior esquerdo
 	
     glEnd();
 
@@ -112,18 +112,63 @@ void Detalhe_cauda(void) {
 }
 
 void Base(void) {
+
+	//base 1
     glPushMatrix();
     
-	glTranslatef(3, -2, 0);
-	glRotatef(0, 0, 0, 0);
+	glTranslatef(0.3, -0.8, 0.3);
+	glRotatef(90, 1, 0, 0);
+	glRotatef(20, 0, 1, 0);
 	glScalef(1, 1, 1);
-	glColor4f(0.5, 0.5, 0.5, 1);
+	glColor4f(0.6, 0.6, 0.6, 1);
+	
+	GLUquadricObj *quadric = gluNewQuadric();
 
-	GLUquadricObj *quadric = gluNewQuadric(); // Criar o objeto quadric
-
-	gluCylinder(quadric, 1, 1, 1, 20, 1); // Passar a referência do quadric como primeiro parâmetro
+	gluCylinder(quadric, 0.04, 0.08, 0.9, 100, 10); // Passar a refer?ncia do quadric como primeiro par?metro
+	
 	glPopMatrix();
+	
+	//base 2
+	glPushMatrix();
+    
+	glTranslatef(0.3, -0.8, -0.3);
+	glRotatef(90, 1, 0, 0);
+	glRotatef(20, 0, 1, 0);
+	glScalef(1, 1, 1);
+	glColor4f(0.6, 0.6, 0.6, 1);
+
+	gluCylinder(quadric, 0.04, 0.08, 0.9, 100, 10); // Passar a refer?ncia do quadric como primeiro par?metro
+	
+	glPopMatrix();
+	
+	//base 3
+	glPushMatrix();
+    
+	glTranslatef(-0.3, -0.8, -0.3);
+	glRotatef(90, 1, 0, 0);
+	glRotatef(20, 0, -1, 0);
+	glScalef(1, 1, 1);
+	glColor4f(0.6, 0.6, 0.6, 1);
+
+	gluCylinder(quadric, 0.04, 0.08, 0.9, 100, 10); // Passar a refer?ncia do quadric como primeiro par?metro
+	
+	glPopMatrix();
+	
+	//base 4
+	glPushMatrix();
+    
+	glTranslatef(-0.3, -0.8, 0.3);
+	glRotatef(90, 1, 0, 0);
+	glRotatef(20, 0, -1, 0);
+	glScalef(1, 1, 1);
+	glColor4f(0.6, 0.6, 0.6, 1);
+
+	gluCylinder(quadric, 0.04, 0.08, 0.9, 100, 10); // Passar a refer?ncia do quadric como primeiro par?metro
+	
+	glPopMatrix();
+
 }
+
 void display(void) {
     glEnable(GL_DEPTH_TEST);
 
@@ -203,6 +248,7 @@ void draw(){
   Corpo();
   Cauda();
   Detalhe_cauda();
+  Base();
   glEndList();
 }
 
@@ -219,7 +265,7 @@ int main(int argc,char **argv){
   glutInit(&argc,argv);
   glutInitDisplayMode(GLUT_RGB|GLUT_DEPTH|GLUT_DOUBLE);
 
-  if(!glutCreateWindow("Avião a helicopter")) {
+  if(!glutCreateWindow("Avi?o a helicopter")) {
     fprintf(stderr,"Error opening a window.\n");
     exit(-1);
   }
