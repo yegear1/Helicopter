@@ -258,16 +258,20 @@ void keyboard(unsigned char key, int x, int y){
     glutPostRedisplay();
     break;
   case 'w':
-    helicopterX += 0.1;
+    helicopterY += 0.1;
+    glutPostRedisplay();
     break;
   case 's':
     helicopterY -= 0.1;
+    glutPostRedisplay();
     break;
   case 'a':
     helicopterZ -= 0.1;
+    glutPostRedisplay();
     break;
   case 'd':
     helicopterZ += 0.1;
+    glutPostRedisplay();
     break;
   }
 }
