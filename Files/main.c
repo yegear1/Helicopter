@@ -16,6 +16,10 @@ GLfloat tetaxz=0;
 GLfloat raioxz=6;
 GLuint  helicopter;
 
+GLfloat helicopterX = 0.0;
+GLfloat helicopterY = 0.0;
+GLfloat helicopterZ = 0.0;
+
 void reshape(int width, int height){
   WIDTH=width;
   HEIGHT=height;
@@ -164,9 +168,29 @@ void Base(void) {
 	glColor4f(0.6, 0.6, 0.6, 1);
 
 	gluCylinder(quadric, 0.04, 0.08, 0.9, 100, 10); // Passar a refer?ncia do quadric como primeiro par?metro
-	
+
 	glPopMatrix();
 
+}
+
+void Esqui(void) {
+    glPushMatrix();
+    glTranslatef(0.6, -1.4, 0);
+	glScalef(0.3, 0.1, 1);
+    glColor4f(0.5, 0.5, 0.5, 1.0);
+    
+    glutSolidCube(1);
+
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-0.6, -1.4, 0);
+    glScalef(0.3, 0.1, 1);
+    glColor4f(0.5, 0.5, 0.5, 1.0);
+    
+    glutSolidCube(1);
+
+    glPopMatrix();
 }
 
 void display(void) {
@@ -190,16 +214,16 @@ void display(void) {
     glVertex3f(10, 0, -10);
     glVertex3f(-10, 0, -10);
     glEnd();
-    glTranslatef(0.0, 2.0, -3.0);
+    glTranslatef(0.0, 2.0, 0.0);
 
+	glTranslatef(helicopterX, helicopterY, helicopterZ);
+	
     glColor4f(0.3, 0.52, 0.18, 1.0);
     glCallList(helicopter);
 
     glPopMatrix();
     glutSwapBuffers();
 }
-
-
 
 void special(int key, int x, int y){
   switch (key) {
@@ -238,6 +262,11 @@ void keyboard(unsigned char key, int x, int y){
     }
     glutPostRedisplay();
     break;
+  case 'w':
+  	helicopterX+=
+  case 's'
+  	
+
   }
 }
 
@@ -249,6 +278,7 @@ void draw(){
   Cauda();
   Detalhe_cauda();
   Base();
+  Esqui();
   glEndList();
 }
 
