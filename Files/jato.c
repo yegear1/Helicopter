@@ -188,6 +188,52 @@ void Esqui(void) {
     glPopMatrix();
 }
 
+void Paletas(void) {
+	
+	//Paleta 1
+	glPushMatrix();
+    glTranslatef(0, 1, 1);
+	glScalef(0.2, 0.1, 2);
+    glColor4f(0.8, 0.8, 0.8, 1.0);
+    
+    glutSolidCube(1);
+
+    glPopMatrix();
+
+	
+	//Paleta 2
+	glPushMatrix();
+    glTranslatef(0, 1, -1);
+	glScalef(0.2, 0.1, 2);
+    glColor4f(0.8, 0.8, 0.8, 1.0);
+    
+    glutSolidCube(1);
+
+    glPopMatrix();
+    
+    //Paleta 3
+    glPushMatrix();
+    glTranslatef(1, 1, 0);
+    glRotatef(90, 0, 1, 0);
+	glScalef(0.2, 0.1, 2);
+    glColor4f(0.8, 0.8, 0.8, 1.0);
+    
+    glutSolidCube(1);
+
+    glPopMatrix();
+    
+    //Paleta 4
+    glPushMatrix();
+    glTranslatef(-1, 1, 0);
+    glRotatef(90, 0, 1, 0);
+	glScalef(0.2, 0.1, 2);
+    glColor4f(0.8, 0.8, 0.8, 1.0);
+    
+    glutSolidCube(1);
+
+    glPopMatrix();
+}
+
 void display(void) {
     glEnable(GL_DEPTH_TEST);
 
@@ -285,6 +331,7 @@ void draw(){
   Detalhe_cauda();
   Base();
   Esqui();
+  Paletas();
   glEndList();
 }
 
