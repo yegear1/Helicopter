@@ -80,31 +80,26 @@ void Detalhe_cauda(void) {
 	glVertex3f(0.05, 0, 1);
 	glVertex3f(-0.05, 0, 1);
 
-	// Face traseira
 	glVertex3f(-0.05, 1, 0);
 	glVertex3f(0.05, 0, 0);
 	glVertex3f(0.05, -0.2, 1);
 	glVertex3f(-0.05, -0.2, 1);
 
-	// Face lateral esquerda
 	glVertex3f(-0.05, 0, 0);
 	glVertex3f(-0.05, 1, 0);
 	glVertex3f(-0.05, -0.2, 1);
 	glVertex3f(-0.05, 0, 1);
 
-	// Face lateral direita
 	glVertex3f(0.05, 0, 0);
 	glVertex3f(0.05, -0.2, 1);
 	glVertex3f(0.05, 1, 1);
 	glVertex3f(0.05, 0, 1);
 
-	// Face superior
 	glVertex3f(-0.05, 0, 1);
 	glVertex3f(0.05, 0, 1);
 	glVertex3f(0.05, -0.2, 1);
 	glVertex3f(-0.05, -0.2, 1);
 
-	// Face inferior
 	glVertex3f(-0.05, 0, 0);
 	glVertex3f(0.05, 0, 0);
 	glVertex3f(0.05, 1, 0);
@@ -263,10 +258,17 @@ void keyboard(unsigned char key, int x, int y){
     glutPostRedisplay();
     break;
   case 'w':
-  	helicopterX+=
-  case 's'
-  	
-
+    helicopterX += 0.1;
+    break;
+  case 's':
+    helicopterY -= 0.1;
+    break;
+  case 'a':
+    helicopterZ -= 0.1;
+    break;
+  case 'd':
+    helicopterZ += 0.1;
+    break;
   }
 }
 
