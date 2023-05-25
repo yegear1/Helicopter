@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout>
 	<Files>
-		<File Name="jato.c" Top="Yes" Tabpos="1" TopLine="1">
-			<Cursor Line="259" Column="11"/>
+		<File Name="jato.c" Top="Yes" Tabpos="1" TopLine="29">
+			<Cursor Line="50" Column="19"/>
 		</File>
 	</Files>
 </Layout>

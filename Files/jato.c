@@ -36,7 +36,7 @@ void Corpo(void){
     glRotatef(0, 0, 0, 0);
     glScalef(0.8, 0.9, 1.2);
     GLUquadricObj *quadric = gluNewQuadric();
-	glColor4f(0.5, 0.5, 0.5, 1.0);
+	glColor4f(0.3, 0.3, 0.3, 1.0);
     gluSphere(quadric, 0.9, 100, 150);
 
     glPopMatrix();
@@ -59,7 +59,7 @@ void Cauda(void){
     glTranslatef(0, 0, 1);
     glRotatef(0, 0, 0, 0);
     glScalef(1, 1, 1);
-	glColor4f(0.5, 0.5, 0.5, 1.0);
+	glColor4f(0.3, 0.3, 0.3, 1.0);
 	
     GLUquadricObj *quadric = gluNewQuadric();
     gluCylinder(quadric, 0.2, 0.1, 2.5, 10, 1);
@@ -73,7 +73,8 @@ void Detalhe_cauda(void) {
     glScalef(1, 1, 1);
 
     glBegin(GL_QUADS);
-    glColor4f(0.5, 0.5, 0.5, 1);
+    glColor4f(0.3, 0.3, 0.3, 1.0);
+
 
 	glVertex3f(-0.05, 1, 0);
 	glVertex3f(0.05, 1, 0);
@@ -194,6 +195,7 @@ void Paletas(void) {
 	glPushMatrix();
     glTranslatef(0, 1, 1);
 	glScalef(0.2, 0.1, 2);
+	glRotatef(0, 0, 0, 0);
     glColor4f(0.8, 0.8, 0.8, 1.0);
     
     glutSolidCube(1);
@@ -235,6 +237,7 @@ void Paletas(void) {
 }
 
 void display(void) {
+	
     glEnable(GL_DEPTH_TEST);
 
     glDepthMask(GL_TRUE);
@@ -248,7 +251,7 @@ void display(void) {
     gluLookAt(obs[0], obs[1], obs[2], look[0], look[1], look[2], 0.0, 1.0, 0.0);
 
     glColor4f(0.52, 0.52, 0.78, 1.0);
-
+	
     glBegin(GL_QUADS);
     glVertex3f(-10, 0, 10);
     glVertex3f(10, 0, 10);
@@ -262,14 +265,17 @@ void display(void) {
     glColor4f(0.3, 0.52, 0.18, 1.0);
     glCallList(helicopter);
 
-    glPopMatrix();
     glutSwapBuffers();
+    
+    glPopMatrix();
 }
+
+
 
 void special(int key, int x, int y){
   switch (key) {
   case GLUT_KEY_UP:
-    obs[1]=obs[1]+1;
+   obs[1]=obs[1]+1;
     glutPostRedisplay();
     break;
   case GLUT_KEY_DOWN:
