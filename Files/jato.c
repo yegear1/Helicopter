@@ -14,6 +14,7 @@ GLfloat look[3]={0.0,3.0,0.0};
 
 GLfloat tetaxz=0;
 GLfloat raioxz=6;
+
 GLuint  helicopter;
 
 GLfloat helicopterX = 0.0;
@@ -21,9 +22,10 @@ GLfloat helicopterY = 0.0;
 GLfloat helicopterZ = 0.0;
 
 GLfloat heliceAngle = 0.0;
-GLfloat PLspeed = 0.1;
 
 GLboolean rotate = false;
+
+GLfloat barreiraY = 2.0;
 
 void reshape(int width, int height){
   WIDTH=width;
@@ -237,7 +239,7 @@ void display(void) {
     glVertex3f(10, 0, -10);
     glVertex3f(-10, 0, -10);
     glEnd();
-    glTranslatef(0.0, 2.0, 0.0);
+    glTranslatef(0.0, barreiraY, 0.0);
     
 	glTranslatef(helicopterX, helicopterY, helicopterZ);
 	
@@ -309,8 +311,10 @@ void keyboard(unsigned char key, int x, int y){
     break;
   case 's':
   	if(rotate==true){
-    helicopterY -= 0.1;
-    glutPostRedisplay();
+  		if(helicopterY>0){
+    		helicopterY -= 0.1;
+    		glutPostRedisplay();
+		  }
 	  }
     break;
   case 'a':
