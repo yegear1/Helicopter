@@ -301,20 +301,29 @@ void keyboard(unsigned char key, int x, int y){
   	updatePL(0);
     break;
   case 'w':
-    helicopterY += 0.1;
-    glutPostRedisplay();
+  	if(rotate==true){
+    	helicopterY += 0.1;
+    	glutPostRedisplay();
+    	break;
+	  }
     break;
   case 's':
+  	if(rotate==true){
     helicopterY -= 0.1;
     glutPostRedisplay();
+	  }
     break;
   case 'a':
+  	if(rotate==true){
     helicopterZ -= 0.1;
     glutPostRedisplay();
+	  }
     break;
   case 'd':
+  	if(rotate==true){
     helicopterZ += 0.1;
     glutPostRedisplay();
+	  }
     break;
   }
 }
