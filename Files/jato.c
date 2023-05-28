@@ -274,6 +274,8 @@ void special(int key, int x, int y){
 void updatePL(int value){
     if(rotate == true) {
 		heliceAngle += 3.0f;
+		glutPostRedisplay();
+		glutTimerFunc(16, updatePL, 0);
     }
 }
 
@@ -297,7 +299,6 @@ void keyboard(unsigned char key, int x, int y){
   case 'i':
   	rotate=!rotate;
   	updatePL(0);
-  	glutPostRedisplay();
     break;
   case 'w':
     helicopterY += 0.1;
