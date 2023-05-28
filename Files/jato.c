@@ -20,6 +20,11 @@ GLfloat helicopterX = 0.0;
 GLfloat helicopterY = 0.0;
 GLfloat helicopterZ = 0.0;
 
+GLfloat heliceAngle = 0.0;
+GLfloat PLspeed = 0.1;
+
+GLboolean rotate = false;
+
 void reshape(int width, int height){
   WIDTH=width;
   HEIGHT=height;
@@ -190,50 +195,24 @@ void Esqui(void) {
 }
 
 void Paletas(void) {
-	
-	//Paleta 1
+	// Paleta 1
 	glPushMatrix();
-    glTranslatef(0, 1, 1);
-	glScalef(0.2, 0.1, 2);
-	glRotatef(0, 0, 0, 0);
-    glColor4f(0.8, 0.8, 0.8, 1.0);
-    
-    glutSolidCube(1);
+	glTranslatef(0, 1, 0);
+	glRotatef(heliceAngle, 0, 1, 0); // Rotação em torno do eixo Z
+	glScalef(0.2, 0.1, 4);
+	glColor4f(0.8, 0.8, 0.8, 1.0);
+	glutSolidCube(1);
+	glPopMatrix();
 
-    glPopMatrix();
-
-	
-	//Paleta 2
+	// Paleta 2
 	glPushMatrix();
-    glTranslatef(0, 1, -1);
-	glScalef(0.2, 0.1, 2);
-    glColor4f(0.8, 0.8, 0.8, 1.0);
-    
-    glutSolidCube(1);
-
-    glPopMatrix();
-    
-    //Paleta 3
-    glPushMatrix();
-    glTranslatef(1, 1, 0);
-    glRotatef(90, 0, 1, 0);
-	glScalef(0.2, 0.1, 2);
-    glColor4f(0.8, 0.8, 0.8, 1.0);
-    
-    glutSolidCube(1);
-
-    glPopMatrix();
-    
-    //Paleta 4
-    glPushMatrix();
-    glTranslatef(-1, 1, 0);
-    glRotatef(90, 0, 1, 0);
-	glScalef(0.2, 0.1, 2);
-    glColor4f(0.8, 0.8, 0.8, 1.0);
-    
-    glutSolidCube(1);
-
-    glPopMatrix();
+	glTranslatef(0, 1, 0);
+	glRotatef(heliceAngle, 0, 1, 0); // Rotação em torno do eixo Y
+	glRotatef(90, 0, 1, 0);
+	glScalef(0.2, 0.1, 4);
+	glColor4f(0.8, 0.8, 0.8, 1.0);
+	glutSolidCube(1);
+	glPopMatrix();
 }
 
 void display(void) {
@@ -259,18 +238,17 @@ void display(void) {
     glVertex3f(-10, 0, -10);
     glEnd();
     glTranslatef(0.0, 2.0, 0.0);
-
+    
 	glTranslatef(helicopterX, helicopterY, helicopterZ);
 	
     glColor4f(0.3, 0.52, 0.18, 1.0);
+    Paletas();
     glCallList(helicopter);
 
     glutSwapBuffers();
     
     glPopMatrix();
 }
-
-
 
 void special(int key, int x, int y){
   switch (key) {
@@ -293,6 +271,12 @@ void special(int key, int x, int y){
   }
 }
 
+void updatePL(int value){
+    if(rotate == true) {
+		heliceAngle += 3.0f;
+    }
+}
+
 void keyboard(unsigned char key, int x, int y){
   switch (key) {
   case 27:
@@ -308,6 +292,12 @@ void keyboard(unsigned char key, int x, int y){
       raioxz=1;
     }
     glutPostRedisplay();
+    break;
+  case 'I':
+  case 'i':
+  	rotate=!rotate;
+  	updatePL(0);
+  	glutPostRedisplay();
     break;
   case 'w':
     helicopterY += 0.1;
@@ -337,7 +327,6 @@ void draw(){
   Detalhe_cauda();
   Base();
   Esqui();
-  Paletas();
   glEndList();
 }
 
