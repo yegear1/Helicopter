@@ -27,10 +27,8 @@ GLfloat propellersAngle = 0.0;
 
 GLboolean rotate = false;
 
-//move left missel
 GLfloat Mmleft = -0.353;
 
-//move right missel
 GLfloat Mmright = -0.353;
 
 void reshape(int width, int height){
@@ -55,7 +53,7 @@ void Corpo(void){
     glPopMatrix();
 }
 
-void Cabine(void) {
+void Cabine(void){
     glPushMatrix();
     glTranslatef(0, 0.2, -0.6);
     glRotatef(90, 0, 0, 1);
@@ -79,7 +77,7 @@ void Cauda(void){
     glPopMatrix();
 }
 
-void Detalhe_cauda(void) {
+void Detalhe_cauda(void){
     glPushMatrix();
     glTranslatef(0,0, 3.5);
     glRotatef(90, -1, 0, 0);
@@ -124,7 +122,7 @@ void Detalhe_cauda(void) {
     glPopMatrix();
 }
 
-void Base(void) {
+void Base(void){
 
 	//base 1
     glPushMatrix();
@@ -182,7 +180,7 @@ void Base(void) {
 
 }
 
-void Esqui(void) {
+void Esqui(void){
     glPushMatrix();
     glTranslatef(0.6, -1.4, 0);
 	glScalef(0.3, 0.1, 1);
@@ -202,7 +200,7 @@ void Esqui(void) {
     glPopMatrix();
 }
 
-void Propellers(void) {
+void Propellers(void){
 	
 	// Paleta 1
 	glPushMatrix();
@@ -231,11 +229,10 @@ void detailPro(void){
     glRotatef(90, 1, 0, 0);
     glScalef(1, 1, 1);
     glColor3f(0.6, 0.6, 0.6);
-    
     GLUquadricObj *quadric1 = gluNewQuadric();
     gluCylinder(quadric1, 0.1, 0.1, 0.8, 32, 32);
     glPopMatrix();
-    //Sphere
+
     glPushMatrix();
     glTranslatef(0, 1, 0);
     glRotatef(90, 1, 0, 0);
@@ -245,7 +242,7 @@ void detailPro(void){
     glPopMatrix();
 }
 
-void baseWeapons(void){
+void baseMissile(void){
 	//left
 	glPushMatrix();
 	glTranslatef(1, 0.1, 0);
@@ -265,7 +262,7 @@ void baseWeapons(void){
 	glPopMatrix();
 }
 
-void Weapons1(void) {
+void caseMissile(void){
 	
 	//left
     glPushMatrix();
@@ -372,7 +369,28 @@ void rightMissile(void){
     glPopMatrix();
 }
 
-void display(void) {
+void machine_gun(void){
+	glPushMatrix();
+    glTranslatef(0, -0.5, -1.3);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.7, 0.7, 0.7);
+    
+    GLUquadricObj *quadric1 = gluNewQuadric();
+    gluCylinder(quadric1, 0.03, 0.05, 0.6, 50, 50);
+    glPopMatrix();
+    
+    
+    glPushMatrix();
+	glTranslatef(0, -0.5, -1.3);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.7, 0.7, 0.7);
+    glutSolidSphere(0.03, 50, 50);
+    glPopMatrix();
+}
+
+void display(void){
 	
     glEnable(GL_DEPTH_TEST);
 
@@ -440,15 +458,15 @@ void updatePL(int value){
 }
 
 void Launchleft(int value){
-	Mmleft+=-0.1;
+	Mmleft+=-0.5;
 	glutPostRedisplay();
-	glutTimerFunc(16, Launchleft, 0);
+	glutTimerFunc(20, Launchleft, 0);
 }
 
 void Launchright(int value){
-	Mmright+=-0.1;
+	Mmright+=-0.5;
 	glutPostRedisplay();
-	glutTimerFunc(16, Launchright, 0);
+	glutTimerFunc(20, Launchright, 0);
 }
 
 void keyboard(unsigned char key, int x, int y){
@@ -519,13 +537,14 @@ void draw(){
   Detalhe_cauda();
   Base();
   Esqui();
-  Weapons1();
-  baseWeapons();
+  caseMissile();
+  baseMissile();
   detailPro();
+  machine_gun();
   glEndList();
 }
 
-void init() {
+void init(){
     draw();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
