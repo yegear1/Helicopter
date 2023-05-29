@@ -418,7 +418,15 @@ void updatePL(int value){
 }
 
 void Launchleft(int value){
-	
+	Mmleft+=-0.1;
+	glutPostRedisplay();
+	glutTimerFunc(16, Launchleft, 0);
+}
+
+void Launchright(int value){
+	Mmright+=-0.1;
+	glutPostRedisplay();
+	glutTimerFunc(16, Launchright, 0);
 }
 
 void keyboard(unsigned char key, int x, int y){
@@ -444,6 +452,12 @@ void keyboard(unsigned char key, int x, int y){
   		updatePL(0);
 	  }
     break;
+  case 't':
+  	Launchleft(0);
+  	break;
+  case 'T':
+  	Launchright(0);
+  	break;
   case 'w':
   	if(rotate==true){
     	helicopterY += 0.11;
