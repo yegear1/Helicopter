@@ -371,6 +371,14 @@ void rightMissile(void){
 
 void machine_gun(void){
 	glPushMatrix();
+    glTranslatef(0, -0.45, -0.8);
+    glRotatef(0, 0, 0, 0);
+    glScalef(0.8, 0.5, 0.5);
+    glColor3f(0.4, 0.4, 0.4);
+    glutSolidSphere(0.35, 4, 60);
+    glPopMatrix();
+	
+	glPushMatrix();
     glTranslatef(0, -0.5, -1.3);
     glRotatef(0, 0, 0, 0);
     glScalef(1, 1, 1);
@@ -379,7 +387,6 @@ void machine_gun(void){
     GLUquadricObj *quadric1 = gluNewQuadric();
     gluCylinder(quadric1, 0.03, 0.05, 0.6, 50, 50);
     glPopMatrix();
-    
     
     glPushMatrix();
 	glTranslatef(0, -0.5, -1.3);
