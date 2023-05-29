@@ -23,7 +23,7 @@ GLfloat helicopterX = 0.0;
 GLfloat helicopterY = 0.0;
 GLfloat helicopterZ = 0.0;
 
-GLfloat heliceAngle = 0.0;
+GLfloat propellersAngle = 0.0;
 
 GLboolean rotate = false;
 
@@ -202,12 +202,12 @@ void Esqui(void) {
     glPopMatrix();
 }
 
-void Paletas(void) {
+void Propellers(void) {
 	
 	// Paleta 1
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
-	glRotatef(heliceAngle, 0, 1, 0);
+	glRotatef(propellersAngle, 0, 1, 0);
 	glScalef(0.2, 0.1, 4);
 	glColor4f(0.8, 0.8, 0.8, 1.0);
 	glutSolidCube(1);
@@ -216,12 +216,33 @@ void Paletas(void) {
 	// Paleta 2
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
-	glRotatef(heliceAngle, 0, 1, 0);
+	glRotatef(propellersAngle, 0, 1, 0);
 	glRotatef(90, 0, 1, 0);
 	glScalef(0.2, 0.1, 4);
 	glColor4f(0.8, 0.8, 0.8, 1.0);
 	glutSolidCube(1);
 	glPopMatrix();
+}
+
+void detailPro(void){
+	//Mast
+	glPushMatrix();
+    glTranslatef(0, 1, 0);
+    glRotatef(90, 1, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.6, 0.6, 0.6);
+    
+    GLUquadricObj *quadric1 = gluNewQuadric();
+    gluCylinder(quadric1, 0.1, 0.1, 0.8, 32, 32);
+    glPopMatrix();
+    //Sphere
+    glPushMatrix();
+    glTranslatef(0, 1, 0);
+    glRotatef(90, 1, 0, 0);
+    glScalef(1, 1, 0.5);
+    glColor3f(0.6, 0.6, 0.6);
+    glutSolidSphere(0.35, 4, 20);
+    glPopMatrix();
 }
 
 void baseWeapons(void){
@@ -294,7 +315,7 @@ void leftMissile(void){
     glTranslatef(1.1, -0.05, Mmleft);
     glRotatef(0, 0, 0, 0);
     glScalef(0.98, 0.98, 0.98);
-    glColor3f(0, 0, 0);
+    glColor3f(0.4, 0.4, 0.4);
     
     GLUquadricObj *quadric1 = gluNewQuadric();
     gluCylinder(quadric1, 0.1, 0.1, 0.8, 32, 32);
@@ -306,7 +327,7 @@ void leftMissile(void){
     glRotatef(0, 0, 0, 0);
     glScalef(0.6, 0.5, 0.1);
     glScalef(0.98, 0.98, 0.98);
-    glColor3f(0, 0, 0);
+    glColor3f(0.4, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
     
@@ -315,7 +336,7 @@ void leftMissile(void){
 	glTranslatef(1.1, -0.05, Mmleft);
     glRotatef(180, 0, 1, 0);
     glScalef(0.1, 0.1, 0.1);
-    glColor3f(0, 0, 0);
+    glColor3f(0.3, 0.3, 0.3);
     glutSolidCone(1.0, 2.0, 20, 10);
     glPopMatrix();
 }
@@ -326,7 +347,7 @@ void rightMissile(void){
     glTranslatef(-1.1, -0.05, Mmright);
     glRotatef(0, 0, 0, 0);
     glScalef(0.98, 0.98, 0.98);
-    glColor3f(0, 0, 0);
+    glColor3f(0.4, 0.4, 0.4);
     
     GLUquadricObj *quadric = gluNewQuadric();
     gluCylinder(quadric, 0.1, 0.1, 0.8, 32, 32);
@@ -337,7 +358,7 @@ void rightMissile(void){
     glRotatef(0, 0, 0, 0);
     glScalef(0.6, 0.5, 0.1);
     glScalef(0.98, 0.98, 0.98);
-    glColor3f(0, 0, 0);
+    glColor3f(0.4, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
     
@@ -346,7 +367,7 @@ void rightMissile(void){
 	glTranslatef(-1.1, -0.05, Mmright);
     glRotatef(180, 0, 1, 0);
     glScalef(0.1, 0.1, 0.1);
-    glColor3f(0, 0, 0);
+    glColor3f(0.3, 0.3, 0.3);
     glutSolidCone(1.0, 2.0, 20, 10);
     glPopMatrix();
 }
@@ -378,11 +399,12 @@ void display(void) {
 	glTranslatef(helicopterX, helicopterY, helicopterZ);
 	
     glColor4f(0.3, 0.52, 0.18, 1.0);
+    Propellers();
+    glCallList(helicopter);
+    
     rightMissile();
     leftMissile();
-    Paletas();
-    glCallList(helicopter);
-
+    
     glutSwapBuffers();
     
     glPopMatrix();
@@ -411,7 +433,7 @@ void special(int key, int x, int y){
 
 void updatePL(int value){
     if(rotate == true) {
-		heliceAngle += 5.0f;
+		propellersAngle += 5.0f;
 		glutPostRedisplay();
 		glutTimerFunc(16, updatePL, 0);
     }
@@ -499,6 +521,7 @@ void draw(){
   Esqui();
   Weapons1();
   baseWeapons();
+  detailPro();
   glEndList();
 }
 
