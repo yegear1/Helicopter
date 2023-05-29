@@ -15,6 +15,8 @@ GLfloat look[3]={0.0,3.0,0.0};
 GLfloat tetaxz=0;
 GLfloat raioxz=6;
 
+GLfloat barreiraY = 2.0;
+
 GLuint  helicopter;
 
 GLfloat helicopterX = 0.0;
@@ -25,7 +27,11 @@ GLfloat heliceAngle = 0.0;
 
 GLboolean rotate = false;
 
-GLfloat barreiraY = 2.0;
+//move left missel
+GLfloat Mmleft = -0.353;
+
+//move right missel
+GLfloat Mmright = -0.353;
 
 void reshape(int width, int height){
   WIDTH=width;
@@ -55,7 +61,7 @@ void Cabine(void) {
     glRotatef(90, 0, 0, 1);
     glScalef(1.1, 1, 1.1);
     GLUquadricObj *quadric = gluNewQuadric();
-    glColor4f(0.5, 0.5, 1.0, 0.5);
+    glColor3f(0.5, 0.5, 1.0);
     gluSphere(quadric, 0.5, 100, 150);
 
     glPopMatrix();
@@ -253,7 +259,7 @@ void Weapons1(void) {
     
     
     glPushMatrix();
-	glTranslatef(1.1, -0.05, 0.4);
+	glTranslatef(1.1, -0.05, 0.45);
     glRotatef(0, 0, 0, 0);
     glScalef(0.5, 0.5, 0.1);
     glColor4f(0.8, 0.8, 0.8, 1.0);
@@ -273,13 +279,76 @@ void Weapons1(void) {
     
     
     glPushMatrix();
-	glTranslatef(-1.1, -0.05, 0.4);
+	glTranslatef(-1.1, -0.05, 0.45);
     glRotatef(0, 0, 0, 0);
     glScalef(0.5, 0.5, 0.1);
     glColor4f(0.8, 0.8, 0.8, 1.0);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
     
+}
+
+void leftMissile(void){
+	//left case
+    glPushMatrix();
+    glTranslatef(1.1, -0.05, Mmleft);
+    glRotatef(0, 0, 0, 0);
+    glScalef(0.98, 0.98, 0.98);
+    glColor3f(0, 0, 0);
+    
+    GLUquadricObj *quadric1 = gluNewQuadric();
+    gluCylinder(quadric1, 0.1, 0.1, 0.8, 32, 32);
+    glPopMatrix();
+    
+
+    glPushMatrix();
+	glTranslatef(1.1, -0.05, Mmleft);
+    glRotatef(0, 0, 0, 0);
+    glScalef(0.6, 0.5, 0.1);
+    glScalef(0.98, 0.98, 0.98);
+    glColor3f(0, 0, 0);
+    glutSolidSphere(0.2, 50, 50);
+    glPopMatrix();
+    
+    //left tip
+    glPushMatrix();
+	glTranslatef(1.1, -0.05, Mmleft);
+    glRotatef(180, 0, 1, 0);
+    glScalef(0.1, 0.1, 0.1);
+    glColor3f(0, 0, 0);
+    glutSolidCone(1.0, 2.0, 20, 10);
+    glPopMatrix();
+}
+
+void rightMissile(void){
+	//right case
+	glPushMatrix();
+    glTranslatef(-1.1, -0.05, Mmright);
+    glRotatef(0, 0, 0, 0);
+    glScalef(0.98, 0.98, 0.98);
+    glColor3f(0, 0, 0);
+    
+    GLUquadricObj *quadric = gluNewQuadric();
+    gluCylinder(quadric, 0.1, 0.1, 0.8, 32, 32);
+    glPopMatrix();
+
+    glPushMatrix();
+	glTranslatef(-1.1, -0.05, Mmright);
+    glRotatef(0, 0, 0, 0);
+    glScalef(0.6, 0.5, 0.1);
+    glScalef(0.98, 0.98, 0.98);
+    glColor3f(0, 0, 0);
+    glutSolidSphere(0.2, 50, 50);
+    glPopMatrix();
+    
+    //right tip
+    glPushMatrix();
+	glTranslatef(-1.1, -0.05, Mmright);
+    glRotatef(180, 0, 1, 0);
+    glScalef(0.1, 0.1, 0.1);
+    glColor3f(0, 0, 0);
+    glutSolidCone(1.0, 2.0, 20, 10);
+    glPopMatrix();
 }
 
 void display(void) {
@@ -309,6 +378,8 @@ void display(void) {
 	glTranslatef(helicopterX, helicopterY, helicopterZ);
 	
     glColor4f(0.3, 0.52, 0.18, 1.0);
+    rightMissile();
+    leftMissile();
     Paletas();
     glCallList(helicopter);
 
@@ -346,6 +417,10 @@ void updatePL(int value){
     }
 }
 
+void Launchleft(int value){
+	
+}
+
 void keyboard(unsigned char key, int x, int y){
   switch (key) {
   case 27:
@@ -362,7 +437,6 @@ void keyboard(unsigned char key, int x, int y){
     }
     glutPostRedisplay();
     break;
-  case 'I':
   case 'i':
   	if(0.001>helicopterY>0){
   		rotate=!rotate;
