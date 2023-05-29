@@ -200,7 +200,7 @@ void Paletas(void) {
 	// Paleta 1
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
-	glRotatef(heliceAngle, 0, 1, 0); // Rota??o em torno do eixo Z
+	glRotatef(heliceAngle, 0, 1, 0);
 	glScalef(0.2, 0.1, 4);
 	glColor4f(0.8, 0.8, 0.8, 1.0);
 	glutSolidCube(1);
@@ -209,7 +209,7 @@ void Paletas(void) {
 	// Paleta 2
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
-	glRotatef(heliceAngle, 0, 1, 0); // Rota??o em torno do eixo Y
+	glRotatef(heliceAngle, 0, 1, 0);
 	glRotatef(90, 0, 1, 0);
 	glScalef(0.2, 0.1, 4);
 	glColor4f(0.8, 0.8, 0.8, 1.0);
@@ -277,7 +277,7 @@ void updatePL(int value){
     if(rotate == true) {
 		heliceAngle += 5.0f;
 		glutPostRedisplay();
-		glutTimerFunc(10, updatePL, 0);
+		glutTimerFunc(16, updatePL, 0);
     }
 }
 
@@ -299,12 +299,15 @@ void keyboard(unsigned char key, int x, int y){
     break;
   case 'I':
   case 'i':
-  	rotate=!rotate;
-  	updatePL(0);
+  	if(0.001>helicopterY>0){
+  		rotate=!rotate;
+  		updatePL(0);
+  		updatePL(0);
+	  }
     break;
   case 'w':
   	if(rotate==true){
-    	helicopterY += 0.1;
+    	helicopterY += 0.11;
     	glutPostRedisplay();
     	break;
 	  }
