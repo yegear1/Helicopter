@@ -197,6 +197,7 @@ void Esqui(void) {
 }
 
 void Paletas(void) {
+	
 	// Paleta 1
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
@@ -215,6 +216,70 @@ void Paletas(void) {
 	glColor4f(0.8, 0.8, 0.8, 1.0);
 	glutSolidCube(1);
 	glPopMatrix();
+}
+
+void baseWeapons(void){
+	//left
+	glPushMatrix();
+	glTranslatef(1, 0.1, 0);
+	glRotatef(8, 0, -1, -1);
+	glScalef(1, 0.1, 0.3);
+	glColor3f(0.5, 0.5, 0.5);
+	glutSolidCube(1);
+	glPopMatrix();
+	
+	//right
+	glPushMatrix();
+	glTranslatef(-1, 0.1, 0);
+	glRotatef(8, 0, 1, 1);
+	glScalef(1, 0.1, 0.3);
+	glColor3f(0.5, 0.5, 0.5);
+	glutSolidCube(1);
+	glPopMatrix();
+}
+
+void Weapons1(void) {
+	
+	//left
+    glPushMatrix();
+    glTranslatef(1.1, -0.05, -0.353);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor4f(0.8, 0.8, 0.8, 1.0);
+    
+    GLUquadricObj *quadric1 = gluNewQuadric();
+    gluCylinder(quadric1, 0.1, 0.1, 0.8, 32, 32);
+    glPopMatrix();
+    
+    
+    glPushMatrix();
+	glTranslatef(1.1, -0.05, 0.4);
+    glRotatef(0, 0, 0, 0);
+    glScalef(0.5, 0.5, 0.1);
+    glColor4f(0.8, 0.8, 0.8, 1.0);
+    glutSolidSphere(0.2, 50, 50);
+    glPopMatrix();
+    
+    //right
+	glPushMatrix();
+    glTranslatef(-1.1, -0.05, -0.353);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor4f(0.8, 0.8, 0.8, 1.0);
+    
+    GLUquadricObj *quadric = gluNewQuadric();
+    gluCylinder(quadric, 0.1, 0.1, 0.8, 32, 32);
+    glPopMatrix();
+    
+    
+    glPushMatrix();
+	glTranslatef(-1.1, -0.05, 0.4);
+    glRotatef(0, 0, 0, 0);
+    glScalef(0.5, 0.5, 0.1);
+    glColor4f(0.8, 0.8, 0.8, 1.0);
+    glutSolidSphere(0.2, 50, 50);
+    glPopMatrix();
+    
 }
 
 void display(void) {
@@ -344,6 +409,8 @@ void draw(){
   Detalhe_cauda();
   Base();
   Esqui();
+  Weapons1();
+  baseWeapons();
   glEndList();
 }
 
