@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-	<Libs Value="-mwindows -lOpenGL32 -lopengl32 -lglut32 -lglu32"/>
+	<Libs Value="-mwindows -lOpenGL32 -lSOIL -lopengl32 -lglut32 -lglu32"/>
 	<Flags Value=""/>
 	<Target Value="Projeto.exe"/>
 	<CommandLine Value=""/>
@@ -14,7 +14,7 @@
 	<CompilerType Value="CPP"/>
 	<AppType Value="GUI"/>
 	<Files>
-		<File Name="jato.c"/>
+		<File Name="main.c"/>
 	</Files>
 	<AppIcon>
 		0000010001003030000001002000A82500001600000028000000300000006000
