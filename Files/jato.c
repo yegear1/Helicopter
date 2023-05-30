@@ -3,7 +3,7 @@
 #include <math.h>
 #include <GL/glut.h>
 #include <unistd.h>
-#include "image.h"
+#include <SOIL.h>
 
 #define PI 3.1415
 
@@ -18,7 +18,7 @@ GLfloat raioxz=6;
 
 GLfloat barreiraY = 2.0;
 
-GLuint  helicopter;
+GLuint helicopter;
 GLuint Missiles;
 
 GLfloat helicopterX = 0.0;
@@ -35,6 +35,20 @@ GLfloat Mmright = -0.353;
 
 GLfloat BulletX1 = -1.3;
 GLfloat BulletX2 = -1.3;
+GLfloat BulletX3 = -1.3;
+
+#define COORD_TEXTURA_PLANO 1.0
+
+GLuint TextFloor;
+GLuint TextHelicopter;
+
+GLfloat ctp[4][2]={
+  {-COORD_TEXTURA_PLANO,-COORD_TEXTURA_PLANO},
+  {+COORD_TEXTURA_PLANO,-COORD_TEXTURA_PLANO},
+  {+COORD_TEXTURA_PLANO,+COORD_TEXTURA_PLANO},
+  {-COORD_TEXTURA_PLANO,+COORD_TEXTURA_PLANO}
+};
+
 
 void reshape(int width, int height){
   WIDTH=width;
@@ -47,18 +61,25 @@ void reshape(int width, int height){
 }
 
 void Corpo(void){
+
     glPushMatrix();
+
     glTranslatef(0, 0, 0);
     glRotatef(0, 0, 0, 0);
     glScalef(0.8, 0.9, 1.2);
+    
     GLUquadricObj *quadric = gluNewQuadric();
-	glColor4f(0.3, 0.3, 0.3, 1.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glColor4f(0.3, 0.3, 0.3, 1.0);
+    glEnable(GL_TEXTURE_2D);
+    
     gluSphere(quadric, 0.9, 100, 150);
 
     glPopMatrix();
 }
 
 void Cabine(void){
+	glDisable(GL_TEXTURE_2D);
     glPushMatrix();
     glTranslatef(0, 0.2, -0.6);
     glRotatef(90, 0, 0, 1);
@@ -71,18 +92,23 @@ void Cabine(void){
 }
 
 void Cauda(void){
+	glDisable(GL_TEXTURE_2D);
     glPushMatrix();
     glTranslatef(0, 0, 1);
     glRotatef(0, 0, 0, 0);
     glScalef(1, 1, 1);
-	glColor4f(0.3, 0.3, 0.3, 1.0);
-	
+
     GLUquadricObj *quadric = gluNewQuadric();
+    gluQuadricTexture(quadric, GL_TRUE);
+    glColor3f(0.3, 0.3, 0.3);
+    glEnable(GL_TEXTURE_2D);
+    
     gluCylinder(quadric, 0.2, 0.1, 2.5, 10, 1);
     glPopMatrix();
 }
 
 void Detalhe_cauda(void){
+	glDisable(GL_TEXTURE_2D);
     glPushMatrix();
     glTranslatef(0,0, 3.5);
     glRotatef(90, -1, 0, 0);
@@ -128,7 +154,7 @@ void Detalhe_cauda(void){
 }
 
 void Base(void){
-
+	glDisable(GL_TEXTURE_2D);
 	//base 1
     glPushMatrix();
     
@@ -143,7 +169,7 @@ void Base(void){
 	gluCylinder(quadric, 0.04, 0.08, 0.9, 100, 10); // Passar a refer?ncia do quadric como primeiro par?metro
 	
 	glPopMatrix();
-	
+	glDisable(GL_TEXTURE_2D);
 	//base 2
 	glPushMatrix();
     
@@ -156,7 +182,7 @@ void Base(void){
 	gluCylinder(quadric, 0.04, 0.08, 0.9, 100, 10); // Passar a refer?ncia do quadric como primeiro par?metro
 	
 	glPopMatrix();
-	
+	glDisable(GL_TEXTURE_2D);
 	//base 3
 	glPushMatrix();
     
@@ -169,7 +195,7 @@ void Base(void){
 	gluCylinder(quadric, 0.04, 0.08, 0.9, 100, 10); // Passar a refer?ncia do quadric como primeiro par?metro
 	
 	glPopMatrix();
-	
+	glDisable(GL_TEXTURE_2D);
 	//base 4
 	glPushMatrix();
     
@@ -186,7 +212,9 @@ void Base(void){
 }
 
 void Esqui(void){
+
     glPushMatrix();
+    glDisable(GL_TEXTURE_2D);
     glTranslatef(0.6, -1.4, 0);
 	glScalef(0.3, 0.1, 1);
     glColor4f(0.5, 0.5, 0.5, 1.0);
@@ -206,7 +234,7 @@ void Esqui(void){
 }
 
 void Propellers(void){
-	
+	glDisable(GL_TEXTURE_2D);
 	// Paleta 1
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
@@ -228,6 +256,7 @@ void Propellers(void){
 }
 
 void detailPro(void){
+	glDisable(GL_TEXTURE_2D);
 	//Mast
 	glPushMatrix();
     glTranslatef(0, 1, 0);
@@ -249,13 +278,14 @@ void detailPro(void){
 
 void baseMissile(void){
 	//left
+	glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
 	glTranslatef(1, 0.1, 0);
 	glRotatef(8, 0, -1, -1);
 	glScalef(1, 0.1, 0.3);
 	glColor3f(0.5, 0.5, 0.5);
-	glutSolidCube(1);
-	glPopMatrix();
+    glutSolidCube(1);
+	glPopMatrix();	
 	
 	//right
 	glPushMatrix();
@@ -268,6 +298,7 @@ void baseMissile(void){
 }
 
 void caseMissile(void){
+	glDisable(GL_TEXTURE_2D);
 	
 	//left
     glPushMatrix();
@@ -312,6 +343,7 @@ void caseMissile(void){
 }
 
 void leftMissile(void){
+	glDisable(GL_TEXTURE_2D);
 	//left case
     glPushMatrix();
     glTranslatef(1.1, -0.05, Mmleft);
@@ -344,6 +376,7 @@ void leftMissile(void){
 }
 
 void rightMissile(void){
+	glDisable(GL_TEXTURE_2D);
 	//right case
 	glPushMatrix();
     glTranslatef(-1.1, -0.05, Mmright);
@@ -375,6 +408,7 @@ void rightMissile(void){
 }
 
 void machine_gun(void){
+	glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
     glTranslatef(0, -0.45, -0.8);
     glRotatef(0, 0, 0, 0);
@@ -403,6 +437,7 @@ void machine_gun(void){
 }
 
 void detail_gun(void){
+	glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
     glTranslatef(0, -0.5, BulletX1);
     glRotatef(0, 0, 0, 0);
@@ -462,9 +497,29 @@ void bullet2(void){
     glPopMatrix();
 }
 
+void bullet3(void){
+	glPushMatrix();
+    glTranslatef(0, -0.5, BulletX3);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.3, 0.3, 0.3);
+    
+    GLUquadricObj *quadric1 = gluNewQuadric();
+    gluCylinder(quadric1, 0.02, 0.03, 0.1, 32, 32);
+    glPopMatrix();
+    
+    glPushMatrix();
+	glTranslatef(0, -0.5, BulletX3);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.7, 0.7, 0.7);
+    glutSolidSphere(0.03, 50, 50);
+    glPopMatrix();
+}
+
 void fire_machine_gun(int value){
     if(fire == true) {
-        BulletX1 += -0.5f;
+        BulletX1 += -0.7f;
         glutPostRedisplay();
         glutTimerFunc(30, fire_machine_gun, 0);
         if(BulletX1 <= -20.0f){
@@ -473,6 +528,7 @@ void fire_machine_gun(int value){
 		}
     }
 }
+
 void fire_machine_gun1(int value){
     if(fire == true) {
         BulletX2 += -1.0f;
@@ -485,9 +541,22 @@ void fire_machine_gun1(int value){
     }
 }
 
+void fire_machine_gun2(int value){
+    if(fire == true) {
+        BulletX3 += -1.3f;
+        glutPostRedisplay();
+        glutTimerFunc(30, fire_machine_gun2, 0);
+        if(BulletX3 <= -20.0f){
+			BulletX3 = -1.3;
+			glutPostRedisplay();
+		}
+    }
+}
+
 void display(void){
 	
     glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
 
     glDepthMask(GL_TRUE);
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -499,31 +568,84 @@ void display(void){
     obs[2] = raioxz * sin(2 * PI * tetaxz / 360);
     gluLookAt(obs[0], obs[1], obs[2], look[0], look[1], look[2], 0.0, 1.0, 0.0);
 
+	glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_DECAL);
+    glBindTexture(GL_TEXTURE_2D,TextFloor);
+	
     glColor4f(0.52, 0.52, 0.78, 1.0);
 	
     glBegin(GL_QUADS);
-    glVertex3f(-10, 0, 10);
-    glVertex3f(10, 0, 10);
-    glVertex3f(10, 0, -10);
-    glVertex3f(-10, 0, -10);
+    glTexCoord2fv(ctp[0]);  glVertex3f(-10,0,10);
+    glTexCoord2fv(ctp[1]);  glVertex3f(10,0,10);
+    glTexCoord2fv(ctp[2]);  glVertex3f(10,0,-10);
+    glTexCoord2fv(ctp[3]);  glVertex3f(-10,0,-10);
     glEnd();
     glTranslatef(0.0, barreiraY, 0.0);
     
+    glColor4f(0.3, 0.52, 0.18, 1.0);
 	glTranslatef(helicopterX, helicopterY, helicopterZ);
 	
-    glColor4f(0.3, 0.52, 0.18, 1.0);
-    Propellers();
-    glCallList(helicopter);
+
     
+    Propellers();
+	glBindTexture(GL_TEXTURE_2D,TextHelicopter);
+    glCallList(helicopter);
     rightMissile();
     leftMissile();
     
     bullet1();
     bullet2();
+    bullet3();
     
     glutSwapBuffers();
     
     glPopMatrix();
+}
+
+void CreateText(){
+	GLint WIDTH;
+	GLint HEIGHT;
+	
+	// Floor
+	unsigned char* Image=SOIL_load_image("Image.jpg",&WIDTH, &HEIGHT, 0, SOIL_LOAD_RGB); // Caminho text
+	if (Image == 0) {
+        // Tratar erro de carregamento da textura
+  		fprintf(stderr,"Error reading a texture.\n");
+		exit(-1);
+        return;
+    }
+	
+	glGenTextures(1, &TextFloor);
+	glBindTexture(GL_TEXTURE_2D, TextFloor);
+	
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WIDTH, HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, Image);
+	
+	SOIL_free_image_data(Image);
+	
+	// Helicopter
+	unsigned char* Image1=SOIL_load_image("Image1.jpg",&WIDTH, &HEIGHT, 0, SOIL_LOAD_RGB); // Caminho text
+	if (Image1 == 0) {
+        // Tratar erro de carregamento da textura
+  		fprintf(stderr,"Error reading a texture.\n");
+		exit(-1);
+        return;
+    }
+	
+	glGenTextures(1, &TextHelicopter);
+	glBindTexture(GL_TEXTURE_2D, TextHelicopter);
+	
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WIDTH, HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, Image1);
+	
+	SOIL_free_image_data(Image1);
 }
 
 void special(int key, int x, int y){
@@ -588,6 +710,7 @@ void keyboard(unsigned char key, int x, int y){
   	fire=!fire;
   	fire_machine_gun(0);
   	fire_machine_gun1(0);
+  	fire_machine_gun2(0);
   	break;
   case 'i':
   	if(0.001>helicopterY>0){
@@ -650,10 +773,14 @@ void draw(){
 }
 
 void init(){
+	CreateText();
     draw();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    glEnable(GL_TEXTURE_2D);
+    glShadeModel(GL_FLAT);
 }
 
 int main(int argc,char **argv){
