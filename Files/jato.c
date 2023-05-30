@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <GL/glut.h>
+#include <unistd.h>
 #include "image.h"
 
 #define PI 3.1415
@@ -18,6 +19,7 @@ GLfloat raioxz=6;
 GLfloat barreiraY = 2.0;
 
 GLuint  helicopter;
+GLuint Missiles;
 
 GLfloat helicopterX = 0.0;
 GLfloat helicopterY = 0.0;
@@ -26,10 +28,13 @@ GLfloat helicopterZ = 0.0;
 GLfloat propellersAngle = 0.0;
 
 GLboolean rotate = false;
+GLboolean fire = false;
 
 GLfloat Mmleft = -0.353;
-
 GLfloat Mmright = -0.353;
+
+GLfloat BulletX1 = -1.3;
+GLfloat BulletX2 = -1.3;
 
 void reshape(int width, int height){
   WIDTH=width;
@@ -333,7 +338,7 @@ void leftMissile(void){
 	glTranslatef(1.1, -0.05, Mmleft);
     glRotatef(180, 0, 1, 0);
     glScalef(0.1, 0.1, 0.1);
-    glColor3f(0.3, 0.3, 0.3);
+    glColor3f(0.1, 0.1, 0.1);
     glutSolidCone(1.0, 2.0, 20, 10);
     glPopMatrix();
 }
@@ -364,7 +369,7 @@ void rightMissile(void){
 	glTranslatef(-1.1, -0.05, Mmright);
     glRotatef(180, 0, 1, 0);
     glScalef(0.1, 0.1, 0.1);
-    glColor3f(0.3, 0.3, 0.3);
+    glColor3f(0.1, 0.1, 0.1);
     glutSolidCone(1.0, 2.0, 20, 10);
     glPopMatrix();
 }
@@ -395,6 +400,89 @@ void machine_gun(void){
     glColor3f(0.7, 0.7, 0.7);
     glutSolidSphere(0.03, 50, 50);
     glPopMatrix();
+}
+
+void detail_gun(void){
+	glPushMatrix();
+    glTranslatef(0, -0.5, BulletX1);
+    glRotatef(0, 0, 0, 0);
+    glScalef(2, 2, 2);
+    glColor3f(0.3, 0.3, 0.3);
+    
+    GLUquadricObj *quadric1 = gluNewQuadric();
+    gluCylinder(quadric1, 0.02, 0.03, 0.1, 32, 32);
+    glPopMatrix();
+    
+    glPushMatrix();
+	glTranslatef(0, -0.5, BulletX1);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.7, 0.7, 0.7);
+    glutSolidSphere(0.03, 50, 50);
+    glPopMatrix();
+}
+
+void bullet1(void){
+	glPushMatrix();
+    glTranslatef(0, -0.5, BulletX1);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.3, 0.3, 0.3);
+    
+    GLUquadricObj *quadric1 = gluNewQuadric();
+    gluCylinder(quadric1, 0.02, 0.03, 0.1, 32, 32);
+    glPopMatrix();
+    
+    glPushMatrix();
+	glTranslatef(0, -0.5, BulletX1);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.7, 0.7, 0.7);
+    glutSolidSphere(0.03, 50, 50);
+    glPopMatrix();
+}
+
+void bullet2(void){
+	glPushMatrix();
+    glTranslatef(0, -0.5, BulletX2);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.3, 0.3, 0.3);
+    
+    GLUquadricObj *quadric1 = gluNewQuadric();
+    gluCylinder(quadric1, 0.02, 0.03, 0.1, 32, 32);
+    glPopMatrix();
+    
+    glPushMatrix();
+	glTranslatef(0, -0.5, BulletX2);
+    glRotatef(0, 0, 0, 0);
+    glScalef(1, 1, 1);
+    glColor3f(0.7, 0.7, 0.7);
+    glutSolidSphere(0.03, 50, 50);
+    glPopMatrix();
+}
+
+void fire_machine_gun(int value){
+    if(fire == true) {
+        BulletX1 += -0.5f;
+        glutPostRedisplay();
+        glutTimerFunc(30, fire_machine_gun, 0);
+        if(BulletX1 <= -20.0f){
+			BulletX1 = -1.3;
+			glutPostRedisplay();
+		}
+    }
+}
+void fire_machine_gun1(int value){
+    if(fire == true) {
+        BulletX2 += -1.0f;
+        glutPostRedisplay();
+        glutTimerFunc(30, fire_machine_gun1, 0);
+        if(BulletX2 <= -20.0f){
+			BulletX2 = -1.3;
+			glutPostRedisplay();
+		}
+    }
 }
 
 void display(void){
@@ -429,6 +517,9 @@ void display(void){
     
     rightMissile();
     leftMissile();
+    
+    bullet1();
+    bullet2();
     
     glutSwapBuffers();
     
@@ -492,6 +583,12 @@ void keyboard(unsigned char key, int x, int y){
     }
     glutPostRedisplay();
     break;
+  case 'M':
+  case 'm':
+  	fire=!fire;
+  	fire_machine_gun(0);
+  	fire_machine_gun1(0);
+  	break;
   case 'i':
   	if(0.001>helicopterY>0){
   		rotate=!rotate;
@@ -548,6 +645,7 @@ void draw(){
   baseMissile();
   detailPro();
   machine_gun();
+  detail_gun();
   glEndList();
 }
 
@@ -577,5 +675,5 @@ int main(int argc,char **argv){
   glutReshapeFunc(reshape);
   glutMainLoop();
 
-  return(0);
+  return (0);
 }
